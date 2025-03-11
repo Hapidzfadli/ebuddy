@@ -11,6 +11,7 @@ export interface User {
     recentlyActive?: FirestoreTimestamp | number;
     createdAt?: FirestoreTimestamp | number;
     updatedAt?: FirestoreTimestamp | number;
+    potentialScore?: number;
 }
 
 export default User;

@@ -20,8 +20,6 @@ import {
 import { 
   Menu as MenuIcon, 
   Dashboard as DashboardIcon, 
-  Person as PersonIcon, 
-  Settings as SettingsIcon, 
   Notifications as NotificationsIcon,
   ExitToApp as LogoutIcon
 } from '@mui/icons-material';
@@ -63,7 +61,8 @@ const DashboardTemplate: React.FC<DashboardTemplateProps> = ({ children }) => {
 
   const handleNavigation = (path: string) => {
     if (user?.uid) {
-      updateUserActivity(user.uid);
+      // Update user activity when navigating between pages
+      updateUserActivity();
     }
     router.push(path);
     if (isMobile) {

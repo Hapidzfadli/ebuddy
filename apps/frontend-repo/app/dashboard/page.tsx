@@ -43,13 +43,19 @@ export default function DashboardPage() {
   const router = useRouter();
   const [tabValue, setTabValue] = useState(0);
 
+  // Update user activity when entering dashboard
+  useEffect(() => {
+    if (isAuthenticated && user?.uid) {
+      // Update activity timestamp when dashboard loads
+      updateUserActivity();
+    }
+  }, [isAuthenticated, user?.uid]);
+
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/login');
-    } else if (user?.uid) {
-      updateUserActivity(user.uid);
     }
-  }, [isAuthenticated, router, user?.uid]);
+  }, [isAuthenticated, router]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);

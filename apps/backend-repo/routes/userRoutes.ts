@@ -10,4 +10,6 @@ router.get('/fetch-user-data/:userId?', authMiddleware, apiController.fetchUserD
 
 router.get('/fetch-all-users', authMiddleware, apiController.fetchAllUsers);
 
+router.post('/update-activity', authMiddleware, apiController.updateUserActivity);
+
 export default router;

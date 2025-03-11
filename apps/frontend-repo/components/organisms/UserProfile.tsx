@@ -39,17 +39,35 @@ const UserProfile: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
+  // Function to fetch user data
+  const handleFetchUserData = async () => {
+    if (!user?.uid) return;
+    
+    try {
+      dispatch(fetchUserStart());
+      const data = await fetchUserData(user.uid);
+      dispatch(fetchUserSuccess(data));
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch user data';
+      dispatch(fetchUserFailure(errorMessage));
+    }
+  };
+
   useEffect(() => {
     if (user?.uid) {
       handleFetchUserData();
       
-      updateUserActivity(user.uid);
+      // Update user activity once when component mounts
+      updateUserActivity();
+      
+      // Set up interval to update activity every 5 minutes
       const activityInterval = setInterval(() => {
-        updateUserActivity(user.uid);
+        updateUserActivity();
       }, 5 * 60 * 1000);
       
       return () => clearInterval(activityInterval);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.uid]);
 
   useEffect(() => {
@@ -69,18 +87,6 @@ const UserProfile: React.FC = () => {
     }
   }, [success, error, dispatch]);
 
-  const handleFetchUserData = async () => {
-    if (!user?.uid) return;
-    
-    try {
-      dispatch(fetchUserStart());
-      const data = await fetchUserData(user.uid);
-      dispatch(fetchUserSuccess(data));
-    } catch (error: any) {
-      dispatch(fetchUserFailure(error.message || 'Failed to fetch user data'));
-    }
-  };
-
   const handleUpdateUserData = async () => {
     if (!user?.uid) return;
     
@@ -95,25 +101,27 @@ const UserProfile: React.FC = () => {
       const data = await updateUserData(user.uid, updatedData);
       dispatch(updateUserSuccess(data));
       setEditMode(false);
-    } catch (error: any) {
-      dispatch(updateUserFailure(error.message || 'Failed to update user data'));
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to update user data';
+      dispatch(updateUserFailure(errorMessage));
     }
   };
 
-  const formatDate = (timestamp?: any) => {
+  const formatDate = (timestamp?: unknown) => {
     if (!timestamp) return 'N/A';
     
     try {
-      let date;
+      let date: Date;
       
-      if (timestamp._seconds !== undefined) {
-        date = new Date(timestamp._seconds * 1000);
+      if (typeof timestamp === 'object' && timestamp !== null && '_seconds' in timestamp) {
+        const timestampObj = timestamp as { _seconds: number };
+        date = new Date(timestampObj._seconds * 1000);
       } else if (timestamp instanceof Date) {
         date = timestamp;
       } else if (typeof timestamp === 'number') {
         date = new Date(timestamp);
       } else {
-        date = new Date(timestamp);
+        date = new Date(String(timestamp));
       }
       
       // Format date in a more readable way
