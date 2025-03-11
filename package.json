@@ -1,0 +1,26 @@
+{
+  "name": "ebuddy-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@11.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "emulate" : "firebase emulators:start --only functions --project=ebuddy-project-e87d0",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  },
+  "dependencies": {
+    "firebase-functions": "^6.3.2"
+  }
+}

@@ -1,0 +1,99 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+.yarn/
+
+# Build output
+dist/
+build/
+lib/
+.next/
+out/
+.turbo/
+.vercel/
+
+# Environment dan konfigurasi lokal
+# .env
+# .env.*
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# !.env.example
+
+# Firebase
+.firebase/
+firebase-debug.log
+ui-debug.log
+firestore-debug.log
+pubsub-debug.log
+*-debug.log
+.runtimeconfig.json
+
+# Cache dan logs
+.eslintcache
+.stylelintcache
+.parcel-cache
+.cache/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE dan editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.history/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# Testing
+coverage/
+.nyc_output/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Berkas TypeScript
+tsconfig.tsbuildinfo
+
+# Berkas deployment
+.netlify/
+.vercel/
+
+# Package manager khusus
+.npm/
+.npmrc
+.yarnrc
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+# hapus salah satu dari lock files di atas jika Anda menggunakannya
+
+# Storage lokal
+*.sqlite
+*.sqlite3
+*.db
+
+# Kunci dan Kredensial (jangan pernah commit ini!)
+*.pem
+*.key
+service-account.json
+*serviceAccountKey*.json
